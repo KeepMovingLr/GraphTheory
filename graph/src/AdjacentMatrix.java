@@ -2,6 +2,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Use a two dimension array to represent a simple graph
+ * simple graph: no self-loop edges and parallel edges.
+ */
 public class AdjacentMatrix {
     private int vertex;
     private int edge;
