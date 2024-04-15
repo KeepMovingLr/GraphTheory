@@ -57,7 +57,7 @@ public class AdjacentSet {
                 ", edge=" + edge);
         sb.append('\n');
         for (int v = 0; v < vertex; v++) {
-            sb.append(String.format("%d ", v));
+            sb.append(String.format("%d: ", v));
             for (Integer e : adj[v]) {
                 sb.append(String.format("%d ", e));
             }
