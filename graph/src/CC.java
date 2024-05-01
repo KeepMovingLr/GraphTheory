@@ -1,6 +1,10 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.TreeSet;
 
+/**
+ * connected component
+ */
 public class CC {
 
     private Graph G;
@@ -34,8 +38,19 @@ public class CC {
         }
     }
 
-    public boolean isConnected(int vertex1 , int vertex2) {
+    public boolean isConnected(int vertex1, int vertex2) {
         return visited[vertex1] == visited[vertex2];
+    }
+
+    public ArrayList<Integer>[] components() {
+        ArrayList<Integer>[] res = new ArrayList[ccCount];
+        for (int i = 0; i < ccCount; i++) {
+            res[i] = new ArrayList<>();
+        }
+        for (int v = 0; v < G.getVertex(); v++) {
+            res[visited[v]].add(v);
+        }
+        return res;
     }
 
     public int getCcCount() {
@@ -48,13 +63,19 @@ public class CC {
 
     public static void main(String[] args) {
         Graph graph = new Graph("graph3.txt");
-        CC graphDFS = new CC(graph);
-        System.out.println(graphDFS.ccCount);
-        for (int ccId : graphDFS.getVisited()) {
+        CC cc = new CC(graph);
+        System.out.println(cc.ccCount);
+        for (int ccId : cc.getVisited()) {
             System.out.println("ccId " + ccId);
         }
-        System.out.println(graphDFS.isConnected(0 , 5));
-        System.out.println(graphDFS.isConnected(0 , 4));
+        System.out.println(cc.isConnected(0, 5));
+        System.out.println(cc.isConnected(0, 4));
+
+        ArrayList<Integer>[] components = cc.components();
+        for (ArrayList<Integer> ccId : components) {
+            System.out.println(ccId);
+        }
+
     }
 
 }
