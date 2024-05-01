@@ -34,7 +34,7 @@ public class CC {
         }
     }
 
-    public boolean inSameComponent(int vertex1 , int vertex2) {
+    public boolean isConnected(int vertex1 , int vertex2) {
         return visited[vertex1] == visited[vertex2];
     }
 
@@ -53,8 +53,8 @@ public class CC {
         for (int ccId : graphDFS.getVisited()) {
             System.out.println("ccId " + ccId);
         }
-        System.out.println(graphDFS.inSameComponent(0 , 5));
-        System.out.println(graphDFS.inSameComponent(0 , 4));
+        System.out.println(graphDFS.isConnected(0 , 5));
+        System.out.println(graphDFS.isConnected(0 , 4));
     }
 
 }
