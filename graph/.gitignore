@@ -2,3 +2,5 @@
 ../.idea/
 *.iml
 /.idea
+.idea
+graph.iml
