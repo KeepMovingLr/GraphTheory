@@ -24,7 +24,7 @@ public class GraphDFS {
 
     private void dfs(int v) {
 
-        // visit v opertion
+        // visit v operation
         visited[v] = true;
         pre.add(v); // pre order traverse
 
