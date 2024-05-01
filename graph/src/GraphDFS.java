@@ -37,7 +37,7 @@ public class GraphDFS {
     }
 
     public static void main(String[] args) {
-        Graph graph = new Graph("./graph/graph2.txt");
+        Graph graph = new Graph("./graph/graph3.txt");
         GraphDFS graphDFS = new GraphDFS(graph);
         for (Integer vertex : graphDFS.getOrder()) {
             System.out.println(vertex);
