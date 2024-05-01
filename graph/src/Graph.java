@@ -68,4 +68,17 @@ public class Graph {
         }
         return sb.toString();
     }
+
+    public int getVertex() {
+        return vertex;
+    }
+
+    public int getEdge() {
+        return edge;
+    }
+
+    public TreeSet<Integer>[] getAdj() {
+        return adj;
+    }
+
 }
