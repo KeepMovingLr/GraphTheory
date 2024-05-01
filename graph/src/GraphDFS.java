@@ -13,6 +13,7 @@ public class GraphDFS {
 
     private List<Integer> post = new ArrayList<>();
 
+    // time complexity O(V+E)
     public GraphDFS(Graph G) {
         this.G = G;
         visited = new boolean[G.getVertex()];
