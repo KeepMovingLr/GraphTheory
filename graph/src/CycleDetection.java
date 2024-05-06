@@ -1,8 +1,7 @@
 import java.util.*;
 
 /**
- * Single source path
- * 单源路径问题
+ * 检查是否有环
  */
 public class CycleDetection {
 
