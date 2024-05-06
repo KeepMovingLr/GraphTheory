@@ -10,40 +10,42 @@ public class CycleDetection {
 
     private boolean[] visited;
 
-    private int[] pre;
-
     private boolean hasCycle;
 
     // time complexity O(V+E)
     public CycleDetection(Graph G) {
         this.G = G;
         visited = new boolean[G.getVertex()];
-        pre = new int[G.getVertex()];
-        Arrays.fill(pre, -1);
         for (int i = 0; i < G.getVertex(); i++) {
             if (!visited[i]) {
-                dfs(i, i);
+                if (dfs(i, i))
+                    break;
             }
         }
     }
 
-    private void dfs(int v, int parent) {
+    private boolean dfs(int v, int parent) {
         visited[v] = true;
-        pre[v] = parent;
         TreeSet<Integer> adjEdges = G.getAdjEdges(v);
         for (Integer adjEdge : adjEdges) {
             if (!visited[adjEdge]) {
-                dfs(adjEdge, v);
+                if (dfs(adjEdge, v)) {
+                    return true;
+                }
             } else {
-                if (pre[adjEdge] != v)
+                if (adjEdge != parent) {
                     hasCycle = true;
+                    return true;
+                }
             }
         }
+        return false;
     }
 
     public static void main(String[] args) {
-        Graph graph = new Graph("graph3.txt");
+        Graph graph = new Graph("graph4.txt");
         CycleDetection singleSourcePath = new CycleDetection(graph);
+        System.out.println(singleSourcePath.hasCycle);
     }
 
 }
