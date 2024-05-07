@@ -5,19 +5,18 @@ import java.util.*;
 public class SingleSourcePath {
     private Graph G;
     boolean[] visited;
+    int source;
 
     int[] pre;
 
     private List<Integer> order = new ArrayList<>();
 
-    public SingleSourcePath(Graph g) {
+    public SingleSourcePath(Graph g, int s) {
         G = g;
         visited = new boolean[G.getVertex()];
-
-        for (int i = 0; i < G.getVertex(); i++) {
-            if (!visited[i])
-                bfs(i);
-        }
+        pre = new int[G.getVertex()];
+        source = s;
+        bfs(s);
     }
 
     // time complexity is O(v+e)
@@ -40,9 +39,28 @@ public class SingleSourcePath {
         }
     }
 
+    public boolean isConnectedTo(int t) {
+        return visited[t];
+    }
+
+    public List<Integer> path(int t) {
+        List<Integer> res = new ArrayList<>();
+        if (!isConnectedTo(t))
+            return res;
+        int cur = t;
+        while (cur != source) {
+            res.add(cur);
+            cur = pre[cur];
+        }
+        res.add(source);
+        Collections.reverse(res);
+        return res;
+    }
+
     public static void main(String[] args) {
         Graph graph = new Graph("graph3.txt");
-        SingleSourcePath graphBFS = new SingleSourcePath(graph);
+        SingleSourcePath graphBFS = new SingleSourcePath(graph, 0);
         System.out.println("BFS order " + graphBFS.order);
+        System.out.println("to 3 " + graphBFS.path(3));
     }
 }
