@@ -29,7 +29,7 @@ public class CC {
 
 
     private void dfs(int v, int ccId) {
-        visited[v] = ccCount;
+        visited[v] = ccId;
         TreeSet<Integer> adjEdges = G.getAdjEdges(v);
         for (Integer adjEdge : adjEdges) {
             if (visited[adjEdge] == -1) {
