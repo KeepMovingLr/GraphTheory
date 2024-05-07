@@ -18,6 +18,7 @@ public class GraphBFS {
         }
     }
 
+    // time complexity is O(v+e)
     private void bfs(int s) {
         Queue<Integer> queue = new LinkedList<>();
         queue.add(s);
