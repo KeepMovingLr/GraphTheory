@@ -2,31 +2,34 @@ package bfs;
 
 import java.util.*;
 
-public class SingleSourcePath {
+public class Path {
     private Graph G;
     boolean[] visited;
-    int source;
-
+    int source, destination;
     int[] pre;
 
     private List<Integer> order = new ArrayList<>();
 
-    public SingleSourcePath(Graph g, int s) {
+    public Path(Graph g, int s, int d) {
         G = g;
         visited = new boolean[G.getVertex()];
         pre = new int[G.getVertex()];
+        Arrays.fill(pre, -1);
         source = s;
-        bfs(s);
+        destination = d;
+        bfs();
     }
 
     // time complexity is O(v+e)
-    private void bfs(int s) {
+    private void bfs() {
         Queue<Integer> queue = new LinkedList<>();
-        queue.add(s);
-        visited[s] = true;
-        pre[s] = s;
+        queue.add(source);
+        visited[source] = true;
+        pre[source] = source;
         while (!queue.isEmpty()) {
             int vertex = queue.poll();
+            if (vertex == destination)
+                return;
             order.add(vertex);
             TreeSet<Integer> adjs = G.getAdjs(vertex);
             for (Integer adj : adjs) {
@@ -39,15 +42,16 @@ public class SingleSourcePath {
         }
     }
 
+
     public boolean isConnectedTo(int t) {
         return visited[t];
     }
 
-    public List<Integer> path(int t) {
+    public List<Integer> path() {
         List<Integer> res = new ArrayList<>();
-        if (!isConnectedTo(t))
+        if (!isConnectedTo(destination))
             return res;
-        int cur = t;
+        int cur = destination;
         while (cur != source) {
             res.add(cur);
             cur = pre[cur];
@@ -59,9 +63,7 @@ public class SingleSourcePath {
 
     public static void main(String[] args) {
         Graph graph = new Graph("graph3.txt");
-        SingleSourcePath graphBFS = new SingleSourcePath(graph, 0);
-        System.out.println("BFS order " + graphBFS.order);
-        System.out.println("to 3 " + graphBFS.path(3));
-        System.out.println("to 5 " + graphBFS.path(5));
+        Path graphBFS = new Path(graph, 0, 6);
+        System.out.println("path : " + graphBFS.path());
     }
 }

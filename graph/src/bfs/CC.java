@@ -2,21 +2,25 @@ package bfs;
 
 import java.util.*;
 
-public class SingleSourcePath {
+/**
+ * component count
+ */
+public class CC {
     private Graph G;
     boolean[] visited;
-    int source;
-
-    int[] pre;
+    int count;
 
     private List<Integer> order = new ArrayList<>();
 
-    public SingleSourcePath(Graph g, int s) {
+    public CC(Graph g) {
         G = g;
         visited = new boolean[G.getVertex()];
-        pre = new int[G.getVertex()];
-        source = s;
-        bfs(s);
+        for (int i = 0; i < g.getVertex(); i++) {
+            if (!visited[i]) {
+                count++;
+                bfs(i);
+            }
+        }
     }
 
     // time complexity is O(v+e)
@@ -24,7 +28,6 @@ public class SingleSourcePath {
         Queue<Integer> queue = new LinkedList<>();
         queue.add(s);
         visited[s] = true;
-        pre[s] = s;
         while (!queue.isEmpty()) {
             int vertex = queue.poll();
             order.add(vertex);
@@ -33,7 +36,6 @@ public class SingleSourcePath {
                 if (!visited[adj]) {
                     queue.add(adj);
                     visited[adj] = true;
-                    pre[adj] = vertex;
                 }
             }
         }
@@ -43,25 +45,10 @@ public class SingleSourcePath {
         return visited[t];
     }
 
-    public List<Integer> path(int t) {
-        List<Integer> res = new ArrayList<>();
-        if (!isConnectedTo(t))
-            return res;
-        int cur = t;
-        while (cur != source) {
-            res.add(cur);
-            cur = pre[cur];
-        }
-        res.add(source);
-        Collections.reverse(res);
-        return res;
-    }
 
     public static void main(String[] args) {
         Graph graph = new Graph("graph3.txt");
-        SingleSourcePath graphBFS = new SingleSourcePath(graph, 0);
-        System.out.println("BFS order " + graphBFS.order);
-        System.out.println("to 3 " + graphBFS.path(3));
-        System.out.println("to 5 " + graphBFS.path(5));
+        CC cc = new CC(graph);
+        System.out.println("cc count " + cc.count);
     }
 }
