@@ -1,18 +1,17 @@
+package dfs;
+
 import java.io.File;
 import java.util.Scanner;
 import java.util.TreeSet;
 
-/**
- * use this to represent graph
- */
-public class Graph {
+public class AdjacentSet {
     private int vertex;
     private int edge;
 
     // space complexity O(v+e)
     private TreeSet<Integer>[] adj;
 
-    public Graph(String filename) {
+    public AdjacentSet(String filename) {
         File file = new File(filename);
         try {
             Scanner scanner = new Scanner(file);
@@ -68,17 +67,4 @@ public class Graph {
         }
         return sb.toString();
     }
-
-    public int getVertex() {
-        return vertex;
-    }
-
-    public int getEdge() {
-        return edge;
-    }
-
-    public TreeSet<Integer>[] getAdj() {
-        return adj;
-    }
-
 }

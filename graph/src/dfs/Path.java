@@ -1,10 +1,12 @@
+package dfs;
+
 import java.util.*;
 
 /**
  * Single source path
- * 单源路径问题
+ * 单源路径问题, 判断从source to destination, optimize by return boolean for dfs
  */
-public class SingleSourcePath {
+public class Path {
 
     private Graph G;
 
@@ -12,32 +14,38 @@ public class SingleSourcePath {
 
     private int source;
 
+    private int destination;
+
     private int[] pre;
 
     // time complexity O(V+E)
-    public SingleSourcePath(Graph G, int s) {
+    public Path(Graph G, int s, int t) {
         this.G = G;
         this.source = s;
+        this.destination = t;
         visited = new boolean[G.getVertex()];
         pre = new int[G.getVertex()];
         Arrays.fill(pre, -1);
 
-        dfs(s, s);
+        dfs(s, t);
     }
 
-    private void dfs(int v, int parent) {
+    private boolean dfs(int v, int parent) {
         visited[v] = true;
         pre[v] = parent;
-        TreeSet<Integer> adjEdges = G.getAdjEdges(v);
+        if (v == destination)
+            return true;
+        TreeSet<Integer> adjEdges = G.getAdjs(v);
         for (Integer adjEdge : adjEdges) {
             if (!visited[adjEdge]) {
-                dfs(adjEdge, v);
+                if (dfs(adjEdge, v))
+                    return true;
             }
         }
-
+        return false;
     }
 
-    public boolean isConnectedTo(int t) {
+    public boolean isConnected(int t) {
         return visited[t];
     }
 
@@ -49,7 +57,7 @@ public class SingleSourcePath {
      */
     public List<Integer> path(int t) {
         List<Integer> path = new ArrayList<>();
-        if (!isConnectedTo(t)) return path;
+        if (!isConnected(t)) return path;
 
         int cur = t;
         while (cur != source) {
@@ -63,9 +71,10 @@ public class SingleSourcePath {
 
     public static void main(String[] args) {
         Graph graph = new Graph("graph3.txt");
-        SingleSourcePath singleSourcePath = new SingleSourcePath(graph, 0);
+        Path singleSourcePath = new Path(graph, 0, 5);
         List<Integer> path = singleSourcePath.path(6);
         System.out.println(path);
+        System.out.println(singleSourcePath.isConnected(4));
     }
 
 }

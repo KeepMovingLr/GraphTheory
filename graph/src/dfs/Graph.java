@@ -1,15 +1,20 @@
+package dfs;
+
 import java.io.File;
 import java.util.Scanner;
 import java.util.TreeSet;
 
-public class AdjacentSet {
+/**
+ * use this to represent graph
+ */
+public class Graph {
     private int vertex;
     private int edge;
 
     // space complexity O(v+e)
     private TreeSet<Integer>[] adj;
 
-    public AdjacentSet(String filename) {
+    public Graph(String filename) {
         File file = new File(filename);
         try {
             Scanner scanner = new Scanner(file);
@@ -35,7 +40,7 @@ public class AdjacentSet {
     }
 
     // time complexity O(1), but when we want to traverse all edges, time complexity is O(degree(v))
-    public TreeSet<Integer> getAdjEdges(int v) {
+    public TreeSet<Integer> getAdjs(int v) {
         return adj[v];
     }
 
@@ -65,4 +70,17 @@ public class AdjacentSet {
         }
         return sb.toString();
     }
+
+    public int getVertex() {
+        return vertex;
+    }
+
+    public int getEdge() {
+        return edge;
+    }
+
+    public TreeSet<Integer>[] getAdj() {
+        return adj;
+    }
+
 }

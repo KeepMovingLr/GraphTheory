@@ -1,3 +1,5 @@
+package dfs;
+
 import java.util.Arrays;
 import java.util.TreeSet;
 
@@ -35,7 +37,7 @@ public class BiPartitionDetection {
         visited[v] = true;
         colors[v] = color;
         color = (color + 1) % 2;
-        TreeSet<Integer> adjEdges = G.getAdjEdges(v);
+        TreeSet<Integer> adjEdges = G.getAdjs(v);
         for (Integer adjEdge : adjEdges) {
             if (!visited[adjEdge]) {
                 if (!dfs(adjEdge, color)) {

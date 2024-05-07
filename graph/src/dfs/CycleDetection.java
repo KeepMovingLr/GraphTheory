@@ -1,3 +1,5 @@
+package dfs;
+
 import java.util.*;
 
 /**
@@ -25,7 +27,7 @@ public class CycleDetection {
 
     private boolean dfs(int v, int parent) {
         visited[v] = true;
-        TreeSet<Integer> adjEdges = G.getAdjEdges(v);
+        TreeSet<Integer> adjEdges = G.getAdjs(v);
         for (Integer adjEdge : adjEdges) {
             if (!visited[adjEdge]) {
                 if (dfs(adjEdge, v)) {

@@ -1,3 +1,5 @@
+package dfs;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.TreeSet;
@@ -30,7 +32,7 @@ public class CC {
 
     private void dfs(int v, int ccId) {
         visited[v] = ccId;
-        TreeSet<Integer> adjEdges = G.getAdjEdges(v);
+        TreeSet<Integer> adjEdges = G.getAdjs(v);
         for (Integer adjEdge : adjEdges) {
             if (visited[adjEdge] == -1) {
                 dfs(adjEdge, ccId);

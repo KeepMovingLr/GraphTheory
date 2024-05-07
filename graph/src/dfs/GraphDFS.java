@@ -1,3 +1,5 @@
+package dfs;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
@@ -28,7 +30,7 @@ public class GraphDFS {
         visited[v] = true;
         pre.add(v); // pre order traverse
 
-        TreeSet<Integer> adjEdges = G.getAdjEdges(v);
+        TreeSet<Integer> adjEdges = G.getAdjs(v);
         for (Integer adjEdge : adjEdges) {
             if (!visited[adjEdge]) dfs(adjEdge);
         }
