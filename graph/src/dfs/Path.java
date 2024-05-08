@@ -27,7 +27,7 @@ public class Path {
         pre = new int[G.getVertex()];
         Arrays.fill(pre, -1);
 
-        dfs(s, t);
+        dfs(s, s);
     }
 
     private boolean dfs(int v, int parent) {

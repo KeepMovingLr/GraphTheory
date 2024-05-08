@@ -34,6 +34,7 @@ public class CycleDetection {
                     return true;
                 }
             } else {
+                // the vertex is not the parent, parent -> A , A -> parent
                 if (adjEdge != parent) {
                     hasCycle = true;
                     return true;
