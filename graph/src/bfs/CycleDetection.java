@@ -43,7 +43,7 @@ public class CycleDetection {
                     // we know that adj is an adjacent of vertex
                     // 如果 w 已经被访问过了，我们还必须判断，w 不是 v 的上一个节点
                     // 如果 w 不是 v 的上一个节点，说明我们找到了一个环
-                    if (pre[vertex] != adj) {
+                    if (pre[vertex] != adj) { // adj -> vertex, then vertex -> adj
                         return true;
                     }
                 }
