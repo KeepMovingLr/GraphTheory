@@ -1,4 +1,8 @@
-package dfs;
+package represent;
+
+import represent.AdjacentList;
+import represent.AdjacentMatrix;
+import represent.AdjacentSet;
 
 public class Main {
     public static void main(String[] args) {
