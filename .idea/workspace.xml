@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="34a74ffc-0708-4626-84e4-4758292c18f4" name="Changes" comment="" />
+    <list default="true" id="a1a4264b-23dc-44e8-ba5d-2c7588caa454" name="Changes" comment="graph implementation">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,6 +36,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "/Users/ray/Java/GraphTheory/graph",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm"
   }
 }]]></component>
@@ -81,5 +87,13 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="AdjacentMatrix" memberName="vertex" />
+        <PinnedItemInfo parentTag="AdjacentMatrix" memberName="edge" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>
