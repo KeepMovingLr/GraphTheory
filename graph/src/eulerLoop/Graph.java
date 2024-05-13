@@ -7,7 +7,7 @@ import java.util.TreeSet;
 /**
  * use this to represent graph
  */
-public class Graph {
+public class Graph implements Cloneable {
     private int vertex;
     private int edge;
 
@@ -49,6 +49,19 @@ public class Graph {
         return adj[v].size();
     }
 
+    /**
+     * remove edge v-w
+     *
+     * @param v
+     * @param w
+     */
+    public void removeEdge(int v, int w) {
+        TreeSet<Integer> adjV = getAdjs(v);
+        TreeSet<Integer> adjW = getAdjs(w);
+        adjV.remove(w);
+        adjW.remove(v);
+    }
+
     // time complexity O(log(v))
     public boolean hasEdge(int v1, int v2) {
         return adj[v1].contains(v2);
@@ -83,4 +96,23 @@ public class Graph {
         return adj;
     }
 
+    @Override
+    protected Object clone() {
+        try {
+            Graph cloned = (Graph) super.clone();
+            cloned.adj = new TreeSet[vertex];
+            for (int v = 0; v < vertex; v++) {
+                cloned.adj[v] = new TreeSet<>();
+                for (int w : adj[v]) {
+                    cloned.adj[v].add(w);
+                }
+            }
+            cloned.vertex = this.vertex;
+            cloned.edge = this.edge;
+            return cloned;
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

@@ -1,5 +1,9 @@
 package eulerLoop;
 
+import java.util.ArrayList;
+import java.util.Stack;
+import java.util.TreeSet;
+
 /**
  * for a connected component, the degree of each vertex is even, then it has Euler loop; <br>
  * if one graph has Euler loop, then the degree of each vertex is even
@@ -22,4 +26,40 @@ public class EulerLoop {
         }
         return true;
     }
+
+    // Hierholzer algorithm
+    public ArrayList<Integer> getEulerLoop() {
+        ArrayList<Integer> res = new ArrayList<>();
+        if(!hasEulerLoop())
+            return res;
+        Stack<Integer> stack = new Stack<>();
+        Graph graph = (Graph)g.clone();
+        // start from 0
+        int curV = 0;
+        stack.push(curV);
+        while (!stack.empty()) {
+            if (graph.degree(curV) != 0) {
+                stack.push(curV);
+                TreeSet<Integer> adjs = graph.getAdjs(curV);
+                int next = adjs.first();
+                graph.removeEdge(curV , next);
+                curV = next;
+            } else {
+                res.add(curV);
+                curV = stack.pop();
+            }
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        Graph graph = new Graph("graph6.txt");
+        EulerLoop el = new EulerLoop(graph);
+        System.out.println(el.hasEulerLoop());
+        ArrayList<Integer> eulerLoop = el.getEulerLoop();
+        System.out.println(eulerLoop);
+    }
+
+
+
 }
