@@ -33,12 +33,13 @@ class Solution2 {
         stack.push(origin);
         while (!stack.isEmpty()) {
             if(flightMap.get(cur).size() != 0) {
-                stack.push(cur);
                 String des = flightMap.get(cur).pollFirst();
+                stack.push(des);
                 cur = des;
             } else {
-                res.add(cur);
-                cur = stack.pop();
+                res.add(stack.pop());
+                if (!stack.isEmpty())
+                    cur = stack.peek();
             }
         }
         Collections.reverse(res);
