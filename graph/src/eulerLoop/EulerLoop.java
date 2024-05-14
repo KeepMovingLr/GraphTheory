@@ -6,7 +6,12 @@ import java.util.TreeSet;
 
 /**
  * for a connected component, the degree of each vertex is even, then it has Euler loop; <br>
- * if one graph has Euler loop, then the degree of each vertex is even
+ * if one graph has Euler loop, then the degree of each vertex is even <br>
+ *
+ * An Euler path, or Eulerian path, in a graph is a path that visits every edge exactly once. <br>
+ * An Eulerian circuit,if such a path exists that starts and ends at the same vertex, it's called an Eulerian circuit or Eulerian cycle. <br>
+ * Eulerian Circuit: A graph has an Eulerian circuit if and only if all vertices have even degree, and all vertices with nonzero degree are connected.<br>
+ * Eulerian Path: A graph has an Eulerian path if and only if exactly zero or two vertices have an odd degree, and all vertices with nonzero degree belong to a single connected component.<br>
  */
 public class EulerLoop {
     private Graph g;
