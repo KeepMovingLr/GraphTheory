@@ -1,8 +1,6 @@
 package cutPoint;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  *
@@ -23,7 +21,7 @@ public class FindCutPoint {
     private int[] low;
     private int cnt;
 
-    private List<Integer> res;
+    private Set<Integer> res;
 
 
     // time complexity O(V+E)
@@ -33,7 +31,7 @@ public class FindCutPoint {
         order = new int[G.getVertex()];
         low = new int[G.getVertex()];
         cnt = 0;
-        res = new ArrayList<>();
+        res = new HashSet<>();
 
         for (int i = 0; i < G.getVertex(); i++) {
             if (!visited[i]) dfs(i, i);
