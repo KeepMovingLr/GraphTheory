@@ -32,20 +32,18 @@ public class HamiltonPath {
         visited[v] = true;
         pre[v] = parent;
         remain--;
+        if (remain == 0) {
+            end = v;
+            return true;
+        }
         TreeSet<Integer> adjNodes = G.getAdjs(v);
         for (Integer adjNode : adjNodes) {
             if (!visited[adjNode]) {
                 if (dfs(adjNode, v, remain)) {
                     return true;
                 }
-            } else {
-                if (remain == 0) {
-                    end = v;
-                    return true;
-                }
             }
         }
-
         visited[v] = false;
         return false;
     }
