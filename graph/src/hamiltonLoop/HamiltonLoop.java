@@ -1,9 +1,7 @@
 package hamiltonLoop;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
 
 public class HamiltonLoop {
 
@@ -11,54 +9,60 @@ public class HamiltonLoop {
 
     private boolean[] visited;
 
-    // store dfs result
-    private List<Integer> pre = new ArrayList<>();
+    private int[] pre;
+    private int end;
 
-    private List<Integer> post = new ArrayList<>();
+    private int remain;
 
     // time complexity O(V+E)
     public HamiltonLoop(Graph G) {
         this.G = G;
         visited = new boolean[G.getVertex()];
-        for (int i = 0; i < G.getVertex(); i++) {
-            if (!visited[i]) dfs(i);
-        }
+        pre = new int[G.getVertex()];
+        end = -1;
+        remain = G.getVertex();
+        dfs(0, 0, remain);
     }
 
-    private void dfs(int v) {
-
-        // visit v operation
+    private boolean dfs(int v, int parent, int remain) {
         visited[v] = true;
-        pre.add(v); // pre order traverse
-
-        TreeSet<Integer> adjEdges = G.getAdjs(v);
-        for (Integer adjEdge : adjEdges) {
-            if (!visited[adjEdge]) dfs(adjEdge);
+        pre[v] = parent;
+        remain--;
+        TreeSet<Integer> adjNodes = G.getAdjs(v);
+        for (Integer adjNode : adjNodes) {
+            if (!visited[adjNode]) {
+                if (dfs(adjNode, v, remain)) {
+                    return true;
+                }
+            } else {
+                if (adjNode == 0 && remain == 0) {
+                    end = v;
+                    return true;
+                }
+            }
         }
 
-        // post order traverse
-        post.add(v);
+        visited[v] = false;
+        return false;
     }
 
-    public List<Integer> getPre() {
-        return pre;
-    }
-
-    public List<Integer> getPost() {
-        return post;
+    public List<Integer> getHamiltonLoop() {
+        List<Integer> res = new ArrayList<>();
+        if (end == -1)
+            return res;
+        res.add(end);
+        while (end != 0) {
+            end = pre[end];
+            res.add(end);
+        }
+        Collections.reverse(res);
+        return res;
     }
 
     public static void main(String[] args) {
-        Graph graph = new Graph("graph3.txt");
-        HamiltonLoop graphDFS = new HamiltonLoop(graph);
-        for (Integer pre : graphDFS.getPre()) {
-            System.out.println(pre);
-        }
-        System.out.println("--------------------");
-        for (Integer post : graphDFS.getPost()) {
-            System.out.println(post);
-        }
-
+        Graph graph = new Graph("src/hamiltonLoop/graph.txt");
+        HamiltonLoop hamiltonLoop = new HamiltonLoop(graph);
+        System.out.println(hamiltonLoop.getHamiltonLoop());
     }
 
 }
