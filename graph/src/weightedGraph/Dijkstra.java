@@ -63,7 +63,11 @@ public class Dijkstra {
         WeightedGraph weightedGraph = new WeightedGraph("src/weightedGraph/graph2.txt");
         Dijkstra dijkstra = new Dijkstra(weightedGraph, 0);
         System.out.println(dijkstra.getDis(1));
+        System.out.println(dijkstra.getShortestPath(0));
         System.out.println(dijkstra.getShortestPath(1));
+        System.out.println(dijkstra.getShortestPath(2));
+        System.out.println(dijkstra.getShortestPath(3));
+        System.out.println(dijkstra.getShortestPath(4));
         for (int di : dijkstra.dis) {
             System.out.println(di);
         }
