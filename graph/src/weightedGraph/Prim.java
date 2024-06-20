@@ -1,7 +1,6 @@
 package weightedGraph;
 
-import java.util.ArrayList;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Prim {
     private WeightedGraph G;
@@ -16,25 +15,30 @@ public class Prim {
         if (cc.ccCount != 1) return;
 
         // Prim
-        boolean[] visited = new boolean[G.getVertex()];
-        visited[0] = true;
-        // find  G.getVertex() - 1 edge to generate tree
-        for (int times = 0; times < G.getVertex() - 1; times++) {
-            // find all Edges crossing the cut and get the smallest one
-            WeightedEdge smallest = new WeightedEdge(-1, -1, Integer.MAX_VALUE);
-            for (int v = 0; v < G.getVertex(); v++) {
-                if (visited[v]) {
-                    TreeMap<Integer, Integer> adjs = G.getAdjs(v);
-                    for (Integer node : adjs.keySet()) {
-                        if (!visited[node] && adjs.get(node) <= smallest.getWeight()) {
-                            smallest = new WeightedEdge(v, node, adjs.get(node));
-                        }
-                    }
+        PriorityQueue<WeightedEdge> pq = new PriorityQueue<>(Comparator.comparingInt(WeightedEdge::getWeight));
+        Set<Integer> partition = new HashSet<>();
+        int edges = 1;
+        int check = 0;
+        while (edges < G.getVertex()) {
+            partition.add(check);
+            // get all cut edges
+            TreeMap<Integer, Integer> adjs = G.getAdjs(check);
+            for (Integer node : adjs.keySet()) {
+                if (!partition.contains(node)) { // i - node
+                    pq.add(new WeightedEdge(check, node, adjs.get(node)));
                 }
             }
+
+            WeightedEdge smallest = pq.poll();
+            while (partition.contains(smallest.getV()) && partition.contains(smallest.getW())) {
+                smallest = pq.poll();
+            }
+
+            partition.add(smallest.getW());
+            partition.add(smallest.getV());
+            check = smallest.getV();
             mst.add(smallest);
-            visited[smallest.getV()] = true;
-            visited[smallest.getW()] = true;
+            edges++;
         }
     }
 
