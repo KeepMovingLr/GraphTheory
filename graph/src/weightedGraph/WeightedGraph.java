@@ -81,8 +81,11 @@ public class WeightedGraph implements Cloneable {
         for (int v = 0; v < vertex; v++) {
             sb.append(String.format("%d: ", v));
             for (Integer e : adj[v].keySet()) {
+                sb.append("(");
                 sb.append(String.format("%d ", e));
-                sb.append(String.format("%d ", adj[v].get(e)));
+                sb.append(": ");
+                sb.append(String.format("%d", adj[v].get(e)));
+                sb.append(")");
             }
             sb.append('\n');
         }
@@ -119,5 +122,10 @@ public class WeightedGraph implements Cloneable {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void main(String[] args) {
+        WeightedGraph weightedGraph = new WeightedGraph("src/weightedGraph/graph.txt");
+        System.out.println(weightedGraph.toString());
     }
 }
