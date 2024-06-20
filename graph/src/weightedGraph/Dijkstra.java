@@ -1,6 +1,7 @@
 package weightedGraph;
 
 import java.util.Arrays;
+import java.util.PriorityQueue;
 import java.util.TreeMap;
 
 public class Dijkstra {
@@ -14,35 +15,30 @@ public class Dijkstra {
         dis = new int[graph.getVertex()];
         Arrays.fill(dis, Integer.MAX_VALUE);
 
-        // Dijkstra
+        // Dijkstra time complexity O(E * log(E))
         boolean[] finished = new boolean[graph.getVertex()];
-        finished[source] = true;
-        dis[source] = 0;
-        int cur = source;
-
-        while (cur != -1) {
-            TreeMap<Integer, Integer> adjs = graph.getAdjs(cur);
-            int min = -1;
-            int minVal = Integer.MAX_VALUE;
+        // int[] a, a[0] is the vertex, a[1] is the distance from a[0] to source
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> (a[1] - b[1]));
+        pq.add(new int[]{source, 0});
+        while (!pq.isEmpty()) {
+            int[] next = pq.poll();
+            if (finished[next[0]])
+                continue;
+            finished[next[0]] = true;
+            dis[next[0]] = next[1];
+            TreeMap<Integer, Integer> adjs = graph.getAdjs(next[0]);
             for (Integer adjNode : adjs.keySet()) {
                 if (finished[adjNode])
                     continue;
-                dis[adjNode] = Math.min(dis[adjNode], dis[cur] + adjs.get(adjNode));
-                if (adjs.get(adjNode) < minVal) {
-                    min = adjNode;
-                    minVal = adjs.get(adjNode);
-                }
+                pq.add(new int[]{adjNode, dis[next[0]] + adjs.get(adjNode)});
             }
-            cur = min;
-            if (cur != -1)
-                finished[cur] = true;
         }
-
     }
 
     public boolean isConnectedTo(int v) {
         return dis[v] != Integer.MAX_VALUE;
     }
+
     public int getDis(int destination) {
         return dis[destination];
     }
