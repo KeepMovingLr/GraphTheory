@@ -14,7 +14,7 @@ public class Prim {
         CC cc = new CC(G);
         if (cc.ccCount != 1) return;
 
-        // Prim
+        // Prim,  time complexity E * log(E)
         PriorityQueue<WeightedEdge> pq = new PriorityQueue<>(Comparator.comparingInt(WeightedEdge::getWeight));
         Set<Integer> partition = new HashSet<>();
         int edges = 1;
