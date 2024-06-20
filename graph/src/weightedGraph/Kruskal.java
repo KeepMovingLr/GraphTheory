@@ -11,6 +11,7 @@ public class Kruskal {
 
     private ArrayList<WeightedEdge> mst;
 
+    // time complexity O(E * log(E)) because of ranking
     public Kruskal(WeightedGraph weightedGraph) {
         this.G = weightedGraph;
         mst = new ArrayList<>();
