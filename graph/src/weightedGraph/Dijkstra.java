@@ -2,6 +2,13 @@ package weightedGraph;
 
 import java.util.*;
 
+/**
+ * Dijkstra 和 BFS的比较：
+ * Dijkstra算法用来解决带权图的最短路径问题(无负权), BFS用来解决无权图的最短路径问题。<br><br>
+ * 这两个算法在结构上是有共同之处的。<br>
+ * BFS 的核心是一个队列;而对于带权图，因为每条边有权值了，所以一个简单的队列不够了，我们需要一个优先队列。<br>
+ * Dijkstra算法,其实是BFS算法在有权图上的拓展。为了解决带权边，加入了一些东西，但是，整体算法的思路是一致的。<br>
+ */
 public class Dijkstra {
     private WeightedGraph graph;
     private int source;
