@@ -17,7 +17,7 @@ public class Dijkstra {
 
         // Dijkstra time complexity O(E * log(E))
         boolean[] finished = new boolean[graph.getVertex()];
-        // int[] a, a[0] is the vertex, a[1] is the distance from a[0] to source
+        // for the element in priority queue int[] a, a[0] is the vertex, a[1] is the distance from a[0] to source
         PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> (a[1] - b[1]));
         pq.add(new int[]{source, 0});
         int preNode = source;
