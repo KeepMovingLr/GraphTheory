@@ -3,6 +3,7 @@ package weightedGraph;
 import java.util.*;
 
 /**
+ * Dijkstra的局限性：没有负权边
  * Dijkstra 和 BFS的比较：
  * Dijkstra算法用来解决带权图的最短路径问题(无负权), BFS用来解决无权图的最短路径问题。<br><br>
  * 这两个算法在结构上是有共同之处的。<br>
