@@ -56,5 +56,10 @@ public class BellmanFord {
         return dis[v];
     }
 
+    public static void main(String[] args) {
+        WeightedGraph weightedGraph = new WeightedGraph("src/weightedGraph/graph2.txt");
+        BellmanFord bellmanFord = new BellmanFord(weightedGraph , 0);
+        System.out.println(bellmanFord.disTo(1));
+    }
 
 }
