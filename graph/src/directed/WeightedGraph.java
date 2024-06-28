@@ -130,7 +130,7 @@ public class WeightedGraph implements Cloneable {
     }
 
     public static void main(String[] args) {
-        WeightedGraph weightedGraph = new WeightedGraph("src/directed/ug.txt", true);
+        WeightedGraph weightedGraph = new WeightedGraph("src/directed/wg.txt", true);
         System.out.println(weightedGraph);
     }
 }
