@@ -34,8 +34,6 @@ public class Prim {
                 smallest = pq.poll();
             }
 
-            partition.add(smallest.getW());
-            partition.add(smallest.getV());
             check = smallest.getV();
             mst.add(smallest);
             edges++;
