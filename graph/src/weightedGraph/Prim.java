@@ -17,9 +17,8 @@ public class Prim {
         // Prim,  time complexity E * log(E)
         PriorityQueue<WeightedEdge> pq = new PriorityQueue<>(Comparator.comparingInt(WeightedEdge::getWeight));
         Set<Integer> partition = new HashSet<>();
-        int edges = 1;
         int check = 0;
-        while (edges < G.getVertex()) {
+        while (mst.size() < G.getVertex() - 1) {
             partition.add(check);
             // get all cut edges
             TreeMap<Integer, Integer> adjs = G.getAdjs(check);
@@ -36,7 +35,6 @@ public class Prim {
 
             check = smallest.getV();
             mst.add(smallest);
-            edges++;
         }
     }
 
