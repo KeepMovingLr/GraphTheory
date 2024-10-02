@@ -4,6 +4,7 @@ import java.util.TreeSet;
 
 /**
  * 检查是否有环
+ * Very Important!!!
  */
 public class DirectedCycleDetection {
 
@@ -22,19 +23,18 @@ public class DirectedCycleDetection {
         onPath = new boolean[G.getVertex()];
         for (int i = 0; i < G.getVertex(); i++) {
             if (!visited[i]) {
-                if (dfs(i, i))
-                    break;
+                if (dfs(i)) break;
             }
         }
     }
 
-    private boolean dfs(int v, int parent) {
+    private boolean dfs(int v) {
         visited[v] = true;
         onPath[v] = true;
         TreeSet<Integer> adjEdges = G.getAdjs(v);
         for (Integer adjVertex : adjEdges) {
             if (!visited[adjVertex]) {
-                if (dfs(adjVertex, v)) {
+                if (dfs(adjVertex)) {
                     return true;
                 }
             } else {
