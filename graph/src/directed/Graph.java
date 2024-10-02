@@ -62,9 +62,9 @@ public class Graph {
     }
 
     // time complexity O(1)
-    public int degree(int v) {
+    /*public int degree(int v) {
         return adj[v].size();
-    }
+    }*/
 
     // time complexity O(log(v))
     public boolean hasEdge(int v1, int v2) {
@@ -80,6 +80,8 @@ public class Graph {
     public void removeEdge(int v, int w) {
         TreeSet<Integer> adjV = getAdjs(v);
         adjV.remove(w);
+        edge--;
+        if (!directed) getAdjs(w).remove(v);
     }
 
     @Override

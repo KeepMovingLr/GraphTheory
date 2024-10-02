@@ -36,8 +36,7 @@ public class WeightedGraph implements Cloneable {
                     throw new Exception("Parallel edge");
                 }
                 adj[a].put(b, weight);
-                if (!directed)
-                    adj[b].put(a, weight);
+                if (!directed) adj[b].put(a, weight);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,9 +53,9 @@ public class WeightedGraph implements Cloneable {
     }
 
     // time complexity O(1)
-    public int degree(int v) {
+    /*public int degree(int v) {
         return adj[v].size();
-    }
+    }*/
 
     public int getWeight(int v, int w) {
         return adj[v].get(w);
@@ -71,6 +70,8 @@ public class WeightedGraph implements Cloneable {
     public void removeEdge(int v, int w) {
         TreeMap<Integer, Integer> adjV = getAdjs(v);
         adjV.remove(w);
+        edge--;
+        if (!directed) getAdjs(w).remove(v);
     }
 
     // time complexity O(log(v))
