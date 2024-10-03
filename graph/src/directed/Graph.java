@@ -16,6 +16,8 @@ public class Graph {
 
     private boolean directed;
 
+    private int[] inDegrees, outDegrees;
+
     public Graph(String filename, boolean directed) {
         File file = new File(filename);
         this.directed = directed;
@@ -26,6 +28,8 @@ public class Graph {
             for (int i = 0; i < vertex; i++) {
                 adj[i] = new TreeSet<>();
             }
+            inDegrees = new int[vertex];
+            outDegrees = new int[vertex];
             edge = scanner.nextInt();
             for (int i = 0; i < edge; i++) {
                 int a = scanner.nextInt();
@@ -35,8 +39,11 @@ public class Graph {
                     throw new Exception("Parallel edge");
                 }
                 adj[a].add(b);
-                if (!directed)
-                    adj[b].add(a);
+                if (directed) {
+                    outDegrees[a]++;
+                    inDegrees[b]++;
+                }
+                if (!directed) adj[b].add(a);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,10 +68,13 @@ public class Graph {
         return adj[v];
     }
 
-    // time complexity O(1)
-    /*public int degree(int v) {
-        return adj[v].size();
-    }*/
+    public int inDegree(int v) {
+        return inDegrees[v];
+    }
+
+    public int outDegree(int v) {
+        return outDegrees[v];
+    }
 
     // time complexity O(log(v))
     public boolean hasEdge(int v1, int v2) {
@@ -80,8 +90,15 @@ public class Graph {
     public void removeEdge(int v, int w) {
         TreeSet<Integer> adjV = getAdjs(v);
         adjV.remove(w);
-        edge--;
+        if (adj[v].contains(w)) {
+            edge--;
+            if (directed) {
+                outDegrees[v]--;
+                inDegrees[w]--;
+            }
+        }
         if (!directed) getAdjs(w).remove(v);
+
     }
 
     @Override
@@ -107,9 +124,7 @@ public class Graph {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("AdjacentSet " +
-                "vertex=" + vertex +
-                ", edge=" + edge);
+        sb.append("AdjacentSet " + "vertex=" + vertex + ", edge=" + edge);
         sb.append('\n');
         for (int v = 0; v < vertex; v++) {
             sb.append(String.format("%d: ", v));
@@ -138,5 +153,9 @@ public class Graph {
         System.out.println(graph);
         Graph graph2 = new Graph("src/directed/ug.txt", true);
         System.out.println(graph2);
+        int vertex = graph2.getVertex();
+        for (int i = 0; i < vertex; i++) {
+            System.out.println(graph2.inDegree(i) + " " + graph2.outDegree(i));
+        }
     }
 }
