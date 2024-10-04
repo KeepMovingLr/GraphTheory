@@ -1,13 +1,14 @@
 package eulerLoop;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 import java.util.TreeSet;
 
 /**
  * for a connected component, the degree of each vertex is even, then it has Euler loop; <br>
  * if one graph has Euler loop, then the degree of each vertex is even <br>
- *
+ * <p>
  * An Euler path, or Eulerian path, in a graph is a path that visits every edge exactly once. <br>
  * An Eulerian circuit,if such a path exists that starts and ends at the same vertex, it's called an Eulerian circuit or Eulerian cycle. <br>
  * Eulerian Circuit: A graph has an Eulerian circuit if and only if all vertices have even degree, and all vertices with nonzero degree are connected.<br>
@@ -22,12 +23,10 @@ public class EulerLoop {
 
     public boolean hasEulerLoop() {
         CC cc = new CC(g);
-        if (cc.getCcCount() > 1)
-            return false;
+        if (cc.getCcCount() > 1) return false;
         // get all degree
         for (int v = 0; v < g.getVertex(); v++) {
-            if (g.degree(v) % 2 == 1)
-                return false;
+            if (g.degree(v) % 2 == 1) return false;
         }
         return true;
     }
@@ -35,10 +34,9 @@ public class EulerLoop {
     // Hierholzer algorithm
     public ArrayList<Integer> getEulerLoop() {
         ArrayList<Integer> res = new ArrayList<>();
-        if(!hasEulerLoop())
-            return res;
+        if (!hasEulerLoop()) return res;
         Stack<Integer> stack = new Stack<>();
-        Graph graph = (Graph)g.clone();
+        Graph graph = (Graph) g.clone();
         // start from 0
         int curV = 0;
         stack.push(curV);
@@ -47,7 +45,7 @@ public class EulerLoop {
                 stack.push(curV);
                 TreeSet<Integer> adjs = graph.getAdjs(curV);
                 int next = adjs.first();
-                graph.removeEdge(curV , next);
+                graph.removeEdge(curV, next);
                 curV = next;
             } else {
                 res.add(curV);
@@ -60,10 +58,9 @@ public class EulerLoop {
     // Hierholzer algorithm -- my solution is easy to understand
     public ArrayList<Integer> getEulerLoop2() {
         ArrayList<Integer> res = new ArrayList<>();
-        if(!hasEulerLoop())
-            return res;
+        if (!hasEulerLoop()) return res;
         Stack<Integer> stack = new Stack<>();
-        Graph graph = (Graph)g.clone();
+        Graph graph = (Graph) g.clone();
         // start from 0
         int curV = 0;
         stack.push(curV);
@@ -72,12 +69,57 @@ public class EulerLoop {
                 TreeSet<Integer> adjs = graph.getAdjs(curV);
                 int next = adjs.first();
                 stack.push(next);
-                graph.removeEdge(curV , next);
+                graph.removeEdge(curV, next);
                 curV = next;
             } else {
                 res.add(stack.pop());
-                if(!stack.isEmpty())
-                    curV = stack.peek();
+                if (!stack.isEmpty()) curV = stack.peek();
+            }
+        }
+        return res;
+    }
+
+    public boolean hasEulerPath() {
+        CC cc = new CC(g);
+        if (cc.getCcCount() > 1) return false;
+        // get odd degree count
+        int cnt = 0;
+        for (int v = 0; v < g.getVertex(); v++) {
+            if (g.degree(v) % 2 == 1) cnt++;
+        }
+        return cnt == 2;
+    }
+
+    // Hierholzer algorithm
+    public List<Integer> getEulerPath() {
+        List<Integer> res = new ArrayList<>();
+        if (!hasEulerPath()) {
+            return res;
+        }
+        //get the first odd degree node as the start node
+        Graph graph = (Graph) g.clone();
+        int vertex = graph.getVertex();
+        int cur = 0;
+        for (int i = 0; i < vertex; i++) {
+            if (graph.degree(i) % 2 == 1) {
+                cur = i;
+                break;
+            }
+        }
+        Stack<Integer> stack = new Stack<>();
+        stack.push(cur);
+        while (!stack.isEmpty()) {
+            if (graph.degree(cur) != 0) {
+                TreeSet<Integer> adjs = graph.getAdjs(cur);
+                int next = adjs.first();
+                stack.push(next);
+                graph.removeEdge(cur, next);
+                cur = next;
+            } else {
+                res.add(stack.pop());
+                if (!stack.isEmpty()) {
+                    cur = stack.peek();
+                }
             }
         }
         return res;
@@ -99,8 +141,13 @@ public class EulerLoop {
         ArrayList<Integer> e2 = el2.getEulerLoop2();
         System.out.println(e1);
         System.out.println(e2);
-    }
 
+        System.out.println("-------------------");
+        Graph graph3 = new Graph("graph8.txt");
+        EulerLoop el3 = new EulerLoop(graph3);
+        System.out.println(el3.hasEulerPath());
+        System.out.println(el3.getEulerPath());
+    }
 
 
 }
