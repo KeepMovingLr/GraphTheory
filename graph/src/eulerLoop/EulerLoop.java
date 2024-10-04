@@ -91,6 +91,14 @@ public class EulerLoop {
         ArrayList<Integer> eulerLoop2 = el.getEulerLoop2();
         System.out.println(eulerLoop);
         System.out.println(eulerLoop2);
+        System.out.println("-------------------");
+        Graph graph2 = new Graph("graph7.txt");
+        EulerLoop el2 = new EulerLoop(graph2);
+        System.out.println(el2.hasEulerLoop());
+        ArrayList<Integer> e1 = el2.getEulerLoop();
+        ArrayList<Integer> e2 = el2.getEulerLoop2();
+        System.out.println(e1);
+        System.out.println(e2);
     }
 
 
