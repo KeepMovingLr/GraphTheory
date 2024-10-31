@@ -24,7 +24,7 @@ public class AdjacentSet {
             for (int i = 0; i < edge; i++) {
                 int a = scanner.nextInt();
                 int b = scanner.nextInt();
-                // todo this operation is a time-consuming operation, here is O(log(n) n is the degree of the vertex
+                // todo this operation is a time-consuming operation, here is O(log(n) n is the degree of the vertex, it is better than using linkedList
                 if (adj[a].contains(b)) {
                     throw new Exception("Parallel edge");
                 }
