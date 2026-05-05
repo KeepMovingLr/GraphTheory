@@ -5,6 +5,7 @@ import java.util.TreeSet;
 
 /**
  * 二分图检测
+ * Bipartite graph
  */
 public class BiPartitionDetection {
 
